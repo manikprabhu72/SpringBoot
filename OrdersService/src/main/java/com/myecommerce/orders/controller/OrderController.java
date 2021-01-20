@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myecommerce.orders.exceptions.ResourceNotFoundException;
@@ -76,9 +77,9 @@ public class OrderController {
 	public void createOrderBatch(@RequestBody List<Order> orders) {
 		kafkaMessageProducer.createOrders(orders);
 	}
-	
+
 	@DeleteMapping("/orders/batch")	
-	public void cancelOrderBatch(@RequestBody List<Long> ids) {
+	public void cancelOrderBatch(@RequestParam(value="ids") List<Long> ids) {
 		kafkaMessageProducer.cancelOrders(ids);
 		
 	}
